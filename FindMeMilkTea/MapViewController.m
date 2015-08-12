@@ -16,31 +16,30 @@
 #import "Location.h"
 #import "Contact.h"
 #import "StoreDetailViewController.h"
+#import "PreferenceBanner.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet PreferenceBanner *banner;
+@property (nonatomic) NSUInteger userChoice;
 @end
 
 @implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mapView.delegate = self;
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.banner.hidden = YES;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         [self.locationManager requestWhenInUseAuthorization];
         [self.locationManager requestAlwaysAuthorization];
     }
     
-    [self.locationManager startMonitoringSignificantLocationChanges];
+    self.mapView.delegate = self;
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
-    
-    // Set up RestKit
-    [self configureRestKit];
-    [self loadStores];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -50,6 +49,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupBanner {
+    self.banner.preferredStore = [self closestStoreAt:self.userChoice];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -65,9 +68,12 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     CLLocationCoordinate2D startLoc = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(startLoc, 1800, 1800);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(startLoc, 3800, 3800);
     [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
-    [self.locationManager stopUpdatingLocation];
+    [self configureRestKit];
+    [self loadStores];
+    
+    //[self.locationManager stopUpdatingLocation];
 }
 
 # pragma mark - Lazy Instantiation
@@ -105,6 +111,14 @@
 // a method updateLeftCalloutAccessoryViewInAnnotation is invoked to update a callout for selected pin MKAnnotation
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
     // segue to store details
+}
+
+- (BubbleTeaStore *)closestStoreAt: (NSUInteger)index {
+    return self.stores ? [self.stores objectAtIndex:index] : nil;
+}
+
+- (NSArray *)sortStores {
+    return self.stores ? [self.stores sortedArrayUsingSelector:@selector(compare:)] : nil;
 }
 
 #pragma mark - RestKit
@@ -146,26 +160,70 @@
 }
 
 - (void)loadStores {
-    NSString *latLon = @"37.33,-122.03"; // approximate latLon of The Mothership (a.k.a Apple headquarters)
+    if (self.mapView.userLocation.location) {
+        NSString *latLon = [NSString stringWithFormat:@"%f,%f", self.mapView.userLocation.coordinate.latitude, self.mapView.userLocation.coordinate.longitude];
+        
+        NSDictionary *queryParams = @{@"ll" : latLon,
+                                      @"client_id" : CLIENTID,
+                                      @"client_secret" : CLIENTSECRET,
+                                      @"categoryId" : @"52e81612bcbc57f1066b7a0c",
+                                      @"v" : @"20140806",
+                                      @"limit" : @"200"
+                                      };
+        
+        dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+        dispatch_async(myQueue, ^{
+            // Perform long running process
+            [[RKObjectManager sharedManager] getObjectsAtPath:@"/v2/venues/search"
+                                                   parameters:queryParams
+                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                          if ([mappingResult count]) {
+                                                              self.stores = mappingResult.array;
+                                                              self.stores = [self sortStores];
+                                                              [self printStoreInfo];
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  //refresh on map
+                                                                  [self.mapView addAnnotations:self.stores];
+                                                                  [self setupBanner];
+                                                                  self.banner.hidden = NO;
+                                                              });
+                                                          }
+                                                          else {
+                                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry there are no bubble tea stores detected nearby."
+                                                                                                              message:@""
+                                                                                                             delegate:self
+                                                                                                    cancelButtonTitle:@"OK"
+                                                                                                    otherButtonTitles:nil];
+                                                              [alert show];
+                                                              [self.locationManager stopUpdatingLocation];
+                                                              return;
+                                                          }
+                                                      }
+                                                      failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                          NSLog(@"What do you mean by 'there is no boba here?!': %@", error);
+                                                      }];
+        });
+        [self.locationManager stopUpdatingLocation];
+    }
+    else {
+        [self.locationManager startUpdatingLocation];
+    }
     
-    NSDictionary *queryParams = @{@"ll" : latLon,
-                                  @"client_id" : CLIENTID,
-                                  @"client_secret" : CLIENTSECRET,
-                                  @"categoryId" : @"52e81612bcbc57f1066b7a0c",
-                                  @"v" : @"20140806"
-                                  };
-    
-    [[RKObjectManager sharedManager] getObjectsAtPath:@"/v2/venues/search"
+    /*[[RKObjectManager sharedManager] getObjectsAtPath:@"/v2/venues/search"
                                            parameters:queryParams
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   self.stores = mappingResult.array;
+                                                  self.stores = [self sortStores];
                                                   [self printStoreInfo];
                                                   //refresh on map
                                                   [self.mapView addAnnotations:self.stores];
+                                                  [self setupBanner];
+                                                  self.banner.hidden = NO;
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"What do you mean by 'there is no boba here?!': %@", error);
                                               }];
+     */
 }
 
 #pragma mark - Debug
@@ -173,11 +231,10 @@
 - (void)printStoreInfo {
     for (BubbleTeaStore *store in self.stores) {
         NSLog(@"Name: %@", store.title);
-        //NSLog(@"Description: %@", store.description);
         NSLog(@"Phone #: %@", store.contact.formattedPhone);
         NSLog(@"Twitter: %@", store.contact.twitter);
         NSLog(@"Facebook: %@", store.contact.facebookName);
-        NSLog(@"Address: %@ %@, %@, %@, %@", store.location.address, store.location.city, store.location.state, store.location.country, store.location.postalCode);
+        NSLog(@"Address: %@", store.subtitle);
         NSLog(@"Distance: %@", store.location.distance);
         NSLog(@"Coordinates: (%@, %@)", store.location.lat, store.location.lng);
         NSLog(@"====================================");
@@ -205,7 +262,8 @@
                 BubbleTeaStore* store = (BubbleTeaStore*)annotation;
                 if (store) {
                     if ([segue.identifier isEqualToString:@"store-details"]){
-                        NSLog(@"hello");
+                        StoreDetailViewController *sdvc = segue.destinationViewController;
+                        sdvc.store = store;
                     }
                 }
             }

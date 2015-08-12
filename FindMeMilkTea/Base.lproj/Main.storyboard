@@ -2,8 +2,49 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="fdZ-e9-lGK">
+            <objects>
+                <viewController id="gqi-xU-buw" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JKq-Vt-GVs"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mnr-du-lHi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8C7-XU-T10">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3IO-jc-F4G">
+                                <rect key="frame" x="16" y="20" width="281" height="180"/>
+                                <color key="backgroundColor" red="0.7970328283" green="0.43451585720000002" blue="0.1662696333" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQE-KI-KVZ">
+                                <rect key="frame" x="316" y="20" width="268" height="180"/>
+                                <color key="backgroundColor" red="0.7970328283" green="0.43451585720000002" blue="0.1662696333" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FQE-KI-KVZ" firstAttribute="leading" secondItem="3IO-jc-F4G" secondAttribute="trailing" constant="19" id="Mwn-zU-qL5"/>
+                            <constraint firstAttribute="trailing" secondItem="FQE-KI-KVZ" secondAttribute="trailing" constant="16" id="NDn-ts-r6D"/>
+                            <constraint firstItem="3IO-jc-F4G" firstAttribute="leading" secondItem="8C7-XU-T10" secondAttribute="leading" constant="16" id="pCe-h1-vbz"/>
+                            <constraint firstItem="FQE-KI-KVZ" firstAttribute="width" secondItem="3IO-jc-F4G" secondAttribute="width" id="vku-I4-aUf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FT4-8q-BWJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="572" y="156"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -16,25 +57,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bpd-xz-6XG">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bpd-xz-6XG">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                             </mapView>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V3U-ai-A8p" customClass="PreferenceBanner">
+                                <rect key="frame" x="0.0" y="20" width="600" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Closest Store name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-j7-pvo">
+                                        <rect key="frame" x="120" y="8" width="472" height="28"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Distance From Current Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvO-v0-vIG">
+                                        <rect key="frame" x="8" y="8" width="104" height="28"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Address of Store" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ee2-2i-1fT">
+                                        <rect key="frame" x="23" y="44" width="555" height="47"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.76000000000000001" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="UvO-v0-vIG" firstAttribute="top" secondItem="V3U-ai-A8p" secondAttribute="top" constant="8" id="8vo-vV-teG"/>
+                                    <constraint firstItem="UvO-v0-vIG" firstAttribute="leading" secondItem="V3U-ai-A8p" secondAttribute="leading" constant="8" id="BZv-24-tkc"/>
+                                    <constraint firstItem="oyo-j7-pvo" firstAttribute="top" secondItem="V3U-ai-A8p" secondAttribute="top" constant="8" id="I15-JL-sNK"/>
+                                    <constraint firstItem="oyo-j7-pvo" firstAttribute="leading" secondItem="UvO-v0-vIG" secondAttribute="trailing" constant="8" id="UDa-2v-opt"/>
+                                    <constraint firstAttribute="trailing" secondItem="oyo-j7-pvo" secondAttribute="trailing" constant="8" id="X3p-gj-vbR"/>
+                                    <constraint firstAttribute="trailing" secondItem="ee2-2i-1fT" secondAttribute="trailing" constant="22" id="agm-Bi-9j3"/>
+                                    <constraint firstItem="ee2-2i-1fT" firstAttribute="leading" secondItem="V3U-ai-A8p" secondAttribute="leading" constant="23" id="bvn-x5-U0h"/>
+                                    <constraint firstAttribute="bottom" secondItem="ee2-2i-1fT" secondAttribute="bottom" constant="9" id="qdH-kB-Mqc"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="addressLabel" destination="ee2-2i-1fT" id="e2D-gh-ya5"/>
+                                    <outlet property="distanceLabel" destination="UvO-v0-vIG" id="q2k-9L-mEB"/>
+                                    <outlet property="nameLabel" destination="oyo-j7-pvo" id="cM7-yP-gsc"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Bpd-xz-6XG" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="SD6-IJ-J97"/>
-                            <constraint firstItem="Bpd-xz-6XG" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="c3x-xr-K6y"/>
-                            <constraint firstAttribute="trailing" secondItem="Bpd-xz-6XG" secondAttribute="trailing" id="fN5-y6-2s2"/>
-                            <constraint firstItem="Bpd-xz-6XG" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="mH8-hR-KAQ"/>
+                            <constraint firstItem="V3U-ai-A8p" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="20" id="99e-Sg-z8J"/>
+                            <constraint firstAttribute="bottom" secondItem="Bpd-xz-6XG" secondAttribute="bottom" id="VtG-Qo-4Vg"/>
+                            <constraint firstItem="V3U-ai-A8p" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="XDb-hj-fbF"/>
+                            <constraint firstItem="Bpd-xz-6XG" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="20" id="i8X-2o-ylY"/>
+                            <constraint firstAttribute="trailing" secondItem="V3U-ai-A8p" secondAttribute="trailing" id="krp-yf-nz6"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="OOA-H6-jno"/>
                     <connections>
+                        <outlet property="banner" destination="V3U-ai-A8p" id="fgP-x0-JCo"/>
                         <outlet property="mapView" destination="Bpd-xz-6XG" id="kzR-gt-6s5"/>
                         <segue destination="UGW-wr-OHM" kind="presentation" identifier="store-details" id="hue-td-97V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1260" y="197"/>
         </scene>
         <!--Store Detail View Controller-->
         <scene sceneID="Bf0-cm-Ub6">
@@ -45,11 +129,11 @@
                         <viewControllerLayoutGuide type="bottom" id="jwu-Cv-DoY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="U9s-8a-qmD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGG-Lc-rfP">
-                                <rect key="frame" x="16" y="28" width="35" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGG-Lc-rfP">
+                                <rect key="frame" x="16" y="20" width="35" height="30"/>
                                 <state key="normal" title="Back">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -57,13 +141,30 @@
                                     <action selector="goBack:" destination="UGW-wr-OHM" eventType="touchUpInside" id="UHl-JO-b4c"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18I-xv-9jK">
+                                <rect key="frame" x="16" y="20" width="568" height="46"/>
+                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LGG-Lc-rfP" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leadingMargin" id="3GR-HQ-ANV"/>
+                            <constraint firstItem="jwu-Cv-DoY" firstAttribute="top" secondItem="18I-xv-9jK" secondAttribute="bottom" constant="534" id="O1B-aQ-93j"/>
+                            <constraint firstItem="18I-xv-9jK" firstAttribute="trailing" secondItem="U9s-8a-qmD" secondAttribute="trailingMargin" id="Y15-uB-Xe8"/>
+                            <constraint firstItem="18I-xv-9jK" firstAttribute="leading" secondItem="LGG-Lc-rfP" secondAttribute="leading" id="fvT-Kq-phX"/>
+                            <constraint firstItem="18I-xv-9jK" firstAttribute="top" secondItem="LGG-Lc-rfP" secondAttribute="top" id="nhq-wu-N8t"/>
+                            <constraint firstItem="LGG-Lc-rfP" firstAttribute="top" secondItem="OAM-is-miI" secondAttribute="bottom" id="pvg-4Y-NPH"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="18I-xv-9jK" id="3NZ-eh-1cZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mpu-Rn-eIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1185" y="161"/>
+            <point key="canvasLocation" x="2109" y="197"/>
         </scene>
     </scenes>
 </document>

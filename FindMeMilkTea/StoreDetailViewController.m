@@ -7,9 +7,10 @@
 //
 
 #import "StoreDetailViewController.h"
+#import "BubbleTeaStore.h"
 
 @interface StoreDetailViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @end
 
 @implementation StoreDetailViewController
@@ -17,6 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.titleLabel.text = [NSString stringWithString:self.store.title];
 }
 
 - (void)didReceiveMemoryWarning {

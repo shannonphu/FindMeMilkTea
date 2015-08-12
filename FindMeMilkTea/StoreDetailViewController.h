@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BubbleTeaStore;
 
 @interface StoreDetailViewController : UIViewController
-
+@property (strong, nonatomic) BubbleTeaStore *store;
 @end

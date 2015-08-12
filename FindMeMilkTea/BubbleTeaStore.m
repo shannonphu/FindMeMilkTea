@@ -27,7 +27,12 @@
 }
 
 - (NSString *)subtitle {
-    return @"Example Description";
+    return [NSString stringWithFormat:@"%@ %@, %@, %@, %@", self.location.address, self.location.city, self.location.state, self.location.country, self.location.postalCode];
+}
+
+- (NSComparisonResult)compare:(BubbleTeaStore *)otherStore {
+    
+    return [self.location.distance compare:otherStore.location.distance];
 }
 
 @end
