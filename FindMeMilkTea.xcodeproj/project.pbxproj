@@ -126,11 +126,9 @@
 		FB349D171B7ABED200C97037 /* FindMeMilkTea */ = {
 			isa = PBXGroup;
 			children = (
-				FB34A0851B7B279100C97037 /* PreferenceBanner.h */,
-				FB34A0861B7B279100C97037 /* PreferenceBanner.m */,
-				FB34A0801B7B16C200C97037 /* Model */,
 				FB349D1C1B7ABED200C97037 /* AppDelegate.h */,
 				FB349D1D1B7ABED200C97037 /* AppDelegate.m */,
+				FB34A0801B7B16C200C97037 /* Model */,
 				FB34A0841B7B263800C97037 /* VC */,
 				FB349D251B7ABED200C97037 /* Main.storyboard */,
 				FB349D281B7ABED200C97037 /* Images.xcassets */,
@@ -170,6 +168,8 @@
 		FB34A0801B7B16C200C97037 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FB34A0851B7B279100C97037 /* PreferenceBanner.h */,
+				FB34A0861B7B279100C97037 /* PreferenceBanner.m */,
 				FB34A0741B7ACAD000C97037 /* BubbleTeaStore.h */,
 				FB34A0751B7ACAD000C97037 /* BubbleTeaStore.m */,
 				FB34A07D1B7B084800C97037 /* Contact.h */,

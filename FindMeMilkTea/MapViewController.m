@@ -94,6 +94,7 @@
     MKAnnotationView* view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
     if (!view) {
         view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
+        view.image = [UIImage imageNamed:@"boba5"];
         view.canShowCallout = YES;
         
         // create a button as a right callout accessories
@@ -108,7 +109,6 @@
 }
 
 // Once a pin MKAnnotation is clicked/selected, a callout is displayed
-// a method updateLeftCalloutAccessoryViewInAnnotation is invoked to update a callout for selected pin MKAnnotation
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
     // segue to store details
 }
@@ -184,8 +184,13 @@
                                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                                   //refresh on map
                                                                   [self.mapView addAnnotations:self.stores];
+                                                                  self.banner.frame = CGRectMake(0, -100, self.view.frame.size.width, 100);
                                                                   [self setupBanner];
-                                                                  self.banner.hidden = NO;
+                                                                  [UIView animateWithDuration:0.5 animations:^{
+                                                                      self.banner.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+                                                                      self.banner.hidden = NO;
+                                                                  }];
+                                                                  
                                                               });
                                                           }
                                                           else {
