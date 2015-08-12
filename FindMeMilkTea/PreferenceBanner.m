@@ -22,7 +22,7 @@
 
 - (void)setStore:(BubbleTeaStore *)store {
     _preferredStore = store;
-    self.distanceLabel.text = [NSString stringWithFormat:@"%@", _preferredStore.location.distance ? _preferredStore.location.distance : 0];
+    self.distanceLabel.text = [NSString stringWithFormat:@"%@ meters", _preferredStore.location.distance ? _preferredStore.location.distance : 0];
     self.nameLabel.text = [NSString stringWithString:_preferredStore.title ? _preferredStore.title : @"No Title?"];
     self.addressLabel.text = [NSString stringWithString:_preferredStore.subtitle ? _preferredStore.subtitle : @"No Address?"];
 }

@@ -23,6 +23,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet PreferenceBanner *banner;
 @property (nonatomic) NSUInteger userChoice;
+@property (strong, nonatomic) NSMutableArray *annotations; // of MKAnnotationView's
 @end
 
 @implementation MapViewController
@@ -68,12 +69,45 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     CLLocationCoordinate2D startLoc = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(startLoc, 3800, 3800);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(startLoc, 1000, 1000);
     [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
     [self configureRestKit];
     [self loadStores];
+}
+
+- (void)setMapRegion {
+    MKCoordinateRegion region;
+    CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
     
-    //[self.locationManager stopUpdatingLocation];
+    float minLat = userLocation.latitude;
+    float minLng = userLocation.longitude;
+    float maxLat = userLocation.latitude;
+    float maxLng = userLocation.longitude;
+    
+    for (int i = 0; i < 4; i++) {
+        BubbleTeaStore *store = [self.stores objectAtIndex:i];
+        if (store.location.lat.floatValue < minLat) {
+            minLat = store.location.lat.floatValue;
+        }
+        if (store.location.lng.floatValue < minLng) {
+            minLng = store.location.lng.floatValue;
+        }
+        if (store.location.lat.floatValue > maxLat) {
+            maxLat = store.location.lat.floatValue;
+        }
+        if (store.location.lng.floatValue > maxLng) {
+            maxLng = store.location.lng.floatValue;
+        }
+    }
+    
+    region.center.latitude = (minLat + maxLat) / 2.0f;
+    region.center.longitude = (minLng + maxLng) / 2.0f;
+    //region.center = userLocation;
+    
+    region.span.latitudeDelta = (maxLat - minLat) * 1.1f; // 10% padding
+    region.span.longitudeDelta = (maxLng - minLng) * 1.1f; // 10% padding
+    
+    [self.mapView setRegion:region animated:YES];
 }
 
 # pragma mark - Lazy Instantiation
@@ -83,6 +117,13 @@
         _locationManager = [[CLLocationManager alloc] init];
     }
     return _locationManager;
+}
+
+- (NSMutableArray *)annotations {
+    if (!_annotations) {
+        _annotations = [[NSMutableArray alloc] init];
+    }
+    return _annotations;
 }
 
 #pragma mark - MapKit
@@ -105,12 +146,22 @@
         view.rightCalloutAccessoryView = disclosureButton;
     }
     view.annotation = annotation;
+    [self.annotations addObject:view];
     return view;
 }
 
-// Once a pin MKAnnotation is clicked/selected, a callout is displayed
+// Once a pin MKAnnotation is clicked/selected
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
-    // segue to store details
+    [UIView animateWithDuration:0.3 animations:^{
+        view.image = [UIImage imageNamed:@"boba5-large"];
+    }];
+}
+
+// Once a pin MKAnnotation is unselected
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    [UIView animateWithDuration:0.3 animations:^{
+        view.image = [UIImage imageNamed:@"boba5"];
+    }];
 }
 
 - (BubbleTeaStore *)closestStoreAt: (NSUInteger)index {
@@ -120,6 +171,23 @@
 - (NSArray *)sortStores {
     return self.stores ? [self.stores sortedArrayUsingSelector:@selector(compare:)] : nil;
 }
+
+- (IBAction)findNextClosest:(id)sender {
+    if (self.userChoice < [self.stores count]) {
+        self.userChoice++;
+        //[self hilightAnnotation];
+        [self setupBanner];
+    }
+}
+
+//- (void)hilightAnnotation {
+//    if (self.userChoice) {
+//        MKAnnotationView *prevAnnotation = [self.annotations objectAtIndex:(self.userChoice - 1)];
+//        prevAnnotation.image = [UIImage imageNamed:@"boba5"];
+//    }
+//    MKAnnotationView *annotation = [self.annotations objectAtIndex:self.userChoice];
+//    annotation.image = [UIImage imageNamed:@"milktea"];
+//}
 
 #pragma mark - RestKit
 
@@ -183,6 +251,7 @@
                                                               [self printStoreInfo];
                                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                                   //refresh on map
+                                                                  [self setMapRegion];
                                                                   [self.mapView addAnnotations:self.stores];
                                                                   self.banner.frame = CGRectMake(0, -100, self.view.frame.size.width, 100);
                                                                   [self setupBanner];
@@ -213,22 +282,6 @@
     else {
         [self.locationManager startUpdatingLocation];
     }
-    
-    /*[[RKObjectManager sharedManager] getObjectsAtPath:@"/v2/venues/search"
-                                           parameters:queryParams
-                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                  self.stores = mappingResult.array;
-                                                  self.stores = [self sortStores];
-                                                  [self printStoreInfo];
-                                                  //refresh on map
-                                                  [self.mapView addAnnotations:self.stores];
-                                                  [self setupBanner];
-                                                  self.banner.hidden = NO;
-                                              }
-                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                  NSLog(@"What do you mean by 'there is no boba here?!': %@", error);
-                                              }];
-     */
 }
 
 #pragma mark - Debug
