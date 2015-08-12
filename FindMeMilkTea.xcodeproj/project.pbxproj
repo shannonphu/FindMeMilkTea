@@ -20,6 +20,7 @@
 		FB34A0761B7ACAD000C97037 /* BubbleTeaStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FB34A0751B7ACAD000C97037 /* BubbleTeaStore.m */; };
 		FB34A0791B7ADAC800C97037 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FB34A0781B7ADAC800C97037 /* Location.m */; };
 		FB34A07F1B7B084800C97037 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = FB34A07E1B7B084800C97037 /* Contact.m */; };
+		FB34A0831B7B240400C97037 /* StoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB34A0821B7B240400C97037 /* StoreDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		FB34A0781B7ADAC800C97037 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		FB34A07D1B7B084800C97037 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		FB34A07E1B7B084800C97037 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		FB34A0811B7B240400C97037 /* StoreDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreDetailViewController.h; sourceTree = "<group>"; };
+		FB34A0821B7B240400C97037 /* StoreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,16 +123,13 @@
 		FB349D171B7ABED200C97037 /* FindMeMilkTea */ = {
 			isa = PBXGroup;
 			children = (
+				FB34A0801B7B16C200C97037 /* Model */,
 				FB349D1C1B7ABED200C97037 /* AppDelegate.h */,
 				FB349D1D1B7ABED200C97037 /* AppDelegate.m */,
 				FB349D411B7ABFD700C97037 /* MapViewController.h */,
 				FB349D421B7ABFD700C97037 /* MapViewController.m */,
-				FB34A0741B7ACAD000C97037 /* BubbleTeaStore.h */,
-				FB34A0751B7ACAD000C97037 /* BubbleTeaStore.m */,
-				FB34A07D1B7B084800C97037 /* Contact.h */,
-				FB34A07E1B7B084800C97037 /* Contact.m */,
-				FB34A0771B7ADAC800C97037 /* Location.h */,
-				FB34A0781B7ADAC800C97037 /* Location.m */,
+				FB34A0811B7B240400C97037 /* StoreDetailViewController.h */,
+				FB34A0821B7B240400C97037 /* StoreDetailViewController.m */,
 				FB349D251B7ABED200C97037 /* Main.storyboard */,
 				FB349D281B7ABED200C97037 /* Images.xcassets */,
 				FB349D2A1B7ABED200C97037 /* LaunchScreen.xib */,
@@ -163,6 +163,19 @@
 				FB349D361B7ABED200C97037 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FB34A0801B7B16C200C97037 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FB34A0741B7ACAD000C97037 /* BubbleTeaStore.h */,
+				FB34A0751B7ACAD000C97037 /* BubbleTeaStore.m */,
+				FB34A07D1B7B084800C97037 /* Contact.h */,
+				FB34A07E1B7B084800C97037 /* Contact.m */,
+				FB34A0771B7ADAC800C97037 /* Location.h */,
+				FB34A0781B7ADAC800C97037 /* Location.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,6 +318,7 @@
 				FB349D1B1B7ABED200C97037 /* main.m in Sources */,
 				FB349D211B7ABED200C97037 /* FindMeMilkTea.xcdatamodeld in Sources */,
 				FB34A0761B7ACAD000C97037 /* BubbleTeaStore.m in Sources */,
+				FB34A0831B7B240400C97037 /* StoreDetailViewController.m in Sources */,
 				FB34A0791B7ADAC800C97037 /* Location.m in Sources */,
 				FB349D431B7ABFD700C97037 /* MapViewController.m in Sources */,
 			);

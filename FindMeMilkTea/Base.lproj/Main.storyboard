@@ -30,10 +30,40 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Bpd-xz-6XG" id="kzR-gt-6s5"/>
+                        <segue destination="UGW-wr-OHM" kind="presentation" identifier="store-details" id="hue-td-97V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Store Detail View Controller-->
+        <scene sceneID="Bf0-cm-Ub6">
+            <objects>
+                <viewController id="UGW-wr-OHM" customClass="StoreDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OAM-is-miI"/>
+                        <viewControllerLayoutGuide type="bottom" id="jwu-Cv-DoY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U9s-8a-qmD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGG-Lc-rfP">
+                                <rect key="frame" x="16" y="28" width="35" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goBack:" destination="UGW-wr-OHM" eventType="touchUpInside" id="UHl-JO-b4c"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpu-Rn-eIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1185" y="161"/>
         </scene>
     </scenes>
 </document>

@@ -12,8 +12,8 @@
 
 @interface BubbleTeaStore : NSObject
 
-@property (strong, nonatomic) NSString *name;
-//@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *subtitle;
 
 @property (strong, nonatomic) Location *location;
 @property (strong, nonatomic) Contact *contact;

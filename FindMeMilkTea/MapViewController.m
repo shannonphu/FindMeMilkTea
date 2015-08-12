@@ -15,11 +15,11 @@
 #import "BubbleTeaStore.h"
 #import "Location.h"
 #import "Contact.h"
+#import "StoreDetailViewController.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (nonatomic) CLLocation *currentLocation;
 @end
 
 @implementation MapViewController
@@ -63,9 +63,11 @@
     [self.locationManager stopUpdatingLocation];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    self.currentLocation = newLocation;
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    CLLocationCoordinate2D startLoc = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(startLoc, 1800, 1800);
+    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+    [self.locationManager stopUpdatingLocation];
 }
 
 # pragma mark - Lazy Instantiation
@@ -75,6 +77,34 @@
         _locationManager = [[CLLocationManager alloc] init];
     }
     return _locationManager;
+}
+
+#pragma mark - MapKit
+
+-(MKAnnotationView*)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    static NSString* reuseId = @"BubbleTeaStore";
+    MKAnnotationView* view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
+    if (!view) {
+        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
+        view.canShowCallout = YES;
+        
+        // create a button as a right callout accessories
+        // once this button is clicked, a segue is performed to show corresponding info
+        UIButton* disclosureButton = [[UIButton alloc] init];
+        [disclosureButton setBackgroundImage:[UIImage imageNamed:@"disclosure"] forState:UIControlStateNormal];
+        [disclosureButton sizeToFit];
+        view.rightCalloutAccessoryView = disclosureButton;
+    }
+    view.annotation = annotation;
+    return view;
+}
+
+// Once a pin MKAnnotation is clicked/selected, a callout is displayed
+// a method updateLeftCalloutAccessoryViewInAnnotation is invoked to update a callout for selected pin MKAnnotation
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
+    // segue to store details
 }
 
 #pragma mark - RestKit
@@ -96,33 +126,13 @@
     [contactMapping addAttributeMappingsFromArray:@[@"formattedPhone", @"twitter", @"facebookName"]];
     // set up overall BubbleTeaStore mapping
     RKObjectMapping *storeMapping = [RKObjectMapping mappingForClass:[BubbleTeaStore class]];
-    [storeMapping addAttributeMappingsFromArray:@[@"name"]];
-    //[storeMapping addPropertyMappingsFromArray:@[locationMapping, contactMapping]];
+    [storeMapping addAttributeMappingsFromDictionary:@{ @"name" : @"title" }];
     [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location"
                                                                                    toKeyPath:@"location"
                                                                                  withMapping:locationMapping]];
     [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"contact"
                                                                                  toKeyPath:@"contact"
                                                                                withMapping:contactMapping]];
-    
-    
-    
-    //RKObjectMapping *storeMapping = [RKObjectMapping mappingForClass:[BubbleTeaStore class]];
-    //[storeMapping addAttributeMappingsFromArray:@[@"name"]];
-    
-//    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[Location class]];
-//    [locationMapping addAttributeMappingsFromArray:@[@"address", @"city", @"country", @"postalCode", @"state", @"distance", @"lat", @"lng"]];
-    //[storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location" toKeyPath:@"location" withMapping:locationMapping]];
-    
-    
-    //RKObjectMapping *contactMapping = [RKObjectMapping mappingForClass:[Contact class]];
-    //[contactMapping addAttributeMappingsFromArray:@[@"twitter"]];
-    //[storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"contact" toKeyPath:@"contact" withMapping:contactMapping]];
-    
-    
-    /*RKObjectMapping *contactMapping = [RKObjectMapping mappingForClass:[Contact class]];
-    [contactMapping addAttributeMappingsFromArray:@[@"formattedPhone", @"twitter", @"facebookName"]];
-    [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"contact" toKeyPath:@"contact" withMapping:contactMapping]];*/
 
     // register mappings with the provider using a response descriptor
     RKResponseDescriptor *responseDescriptor =
@@ -151,6 +161,7 @@
                                                   self.stores = mappingResult.array;
                                                   [self printStoreInfo];
                                                   //refresh on map
+                                                  [self.mapView addAnnotations:self.stores];
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"What do you mean by 'there is no boba here?!': %@", error);
@@ -161,7 +172,7 @@
 
 - (void)printStoreInfo {
     for (BubbleTeaStore *store in self.stores) {
-        NSLog(@"Name: %@", store.name);
+        NSLog(@"Name: %@", store.title);
         //NSLog(@"Description: %@", store.description);
         NSLog(@"Phone #: %@", store.contact.formattedPhone);
         NSLog(@"Twitter: %@", store.contact.twitter);
@@ -173,14 +184,34 @@
     }
 }
 
-/*
+
 #pragma mark - Navigation
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if ([view.annotation isKindOfClass:[BubbleTeaStore class]])
+        [self performSegueWithIdentifier:@"store-details" sender:view];
+    
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([sender isKindOfClass:[MKAnnotationView class]]) {
+        if ([segue.destinationViewController isKindOfClass:[StoreDetailViewController class]]) {
+            id <MKAnnotation> annotation = ((MKAnnotationView*)sender).annotation;
+            if ([annotation isKindOfClass:[BubbleTeaStore class]]) {
+                BubbleTeaStore* store = (BubbleTeaStore*)annotation;
+                if (store) {
+                    if ([segue.identifier isEqualToString:@"store-details"]){
+                        NSLog(@"hello");
+                    }
+                }
+            }
+        }
+    }
 }
-*/
+
 
 @end
