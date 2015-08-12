@@ -6,13 +6,16 @@
 //  Copyright (c) 2015 Shannon Phu. All rights reserved.
 //
 
+@class Location;
+@class Contact;
 #import <Foundation/Foundation.h>
 
 @interface BubbleTeaStore : NSObject
+
 @property (strong, nonatomic) NSString *name;
 //@property (strong, nonatomic) NSString *description;
-//@property (strong, nonatomic) NSString *phoneNumber;
-//@property (nonatomic) float distance;
-//@property (nonatomic) float latitude;
-//@property (nonatomic) float longitude;
+
+@property (strong, nonatomic) Location *location;
+@property (strong, nonatomic) Contact *contact;
+
 @end

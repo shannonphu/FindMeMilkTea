@@ -13,6 +13,8 @@
 #import <MapKit/MapKit.h>
 #import <RestKit.h>
 #import "BubbleTeaStore.h"
+#import "Location.h"
+#import "Contact.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -85,10 +87,43 @@
     // initialize RestKit
     RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
     
-    // setup object mappings
+    // setup nested object mappings within BubbleTeaStore
+    // location
+    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[Location class]];
+    [locationMapping addAttributeMappingsFromArray:@[@"address", @"city", @"country", @"postalCode", @"state", @"distance", @"lat", @"lng"]];
+    // contact
+    RKObjectMapping *contactMapping = [RKObjectMapping mappingForClass:[Contact class]];
+    [contactMapping addAttributeMappingsFromArray:@[@"formattedPhone", @"twitter", @"facebookName"]];
+    // set up overall BubbleTeaStore mapping
     RKObjectMapping *storeMapping = [RKObjectMapping mappingForClass:[BubbleTeaStore class]];
     [storeMapping addAttributeMappingsFromArray:@[@"name"]];
+    //[storeMapping addPropertyMappingsFromArray:@[locationMapping, contactMapping]];
+    [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location"
+                                                                                   toKeyPath:@"location"
+                                                                                 withMapping:locationMapping]];
+    [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"contact"
+                                                                                 toKeyPath:@"contact"
+                                                                               withMapping:contactMapping]];
     
+    
+    
+    //RKObjectMapping *storeMapping = [RKObjectMapping mappingForClass:[BubbleTeaStore class]];
+    //[storeMapping addAttributeMappingsFromArray:@[@"name"]];
+    
+//    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[Location class]];
+//    [locationMapping addAttributeMappingsFromArray:@[@"address", @"city", @"country", @"postalCode", @"state", @"distance", @"lat", @"lng"]];
+    //[storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location" toKeyPath:@"location" withMapping:locationMapping]];
+    
+    
+    //RKObjectMapping *contactMapping = [RKObjectMapping mappingForClass:[Contact class]];
+    //[contactMapping addAttributeMappingsFromArray:@[@"twitter"]];
+    //[storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"contact" toKeyPath:@"contact" withMapping:contactMapping]];
+    
+    
+    /*RKObjectMapping *contactMapping = [RKObjectMapping mappingForClass:[Contact class]];
+    [contactMapping addAttributeMappingsFromArray:@[@"formattedPhone", @"twitter", @"facebookName"]];
+    [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"contact" toKeyPath:@"contact" withMapping:contactMapping]];*/
+
     // register mappings with the provider using a response descriptor
     RKResponseDescriptor *responseDescriptor =
     [RKResponseDescriptor responseDescriptorWithMapping:storeMapping
@@ -126,7 +161,15 @@
 
 - (void)printStoreInfo {
     for (BubbleTeaStore *store in self.stores) {
-        NSLog(@"%@", store.name);
+        NSLog(@"Name: %@", store.name);
+        //NSLog(@"Description: %@", store.description);
+        NSLog(@"Phone #: %@", store.contact.formattedPhone);
+        NSLog(@"Twitter: %@", store.contact.twitter);
+        NSLog(@"Facebook: %@", store.contact.facebookName);
+        NSLog(@"Address: %@ %@, %@, %@, %@", store.location.address, store.location.city, store.location.state, store.location.country, store.location.postalCode);
+        NSLog(@"Distance: %@", store.location.distance);
+        NSLog(@"Coordinates: (%@, %@)", store.location.lat, store.location.lng);
+        NSLog(@"====================================");
     }
 }
 
