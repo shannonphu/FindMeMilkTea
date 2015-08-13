@@ -27,7 +27,17 @@
 }
 
 - (NSString *)subtitle {
-    return [NSString stringWithFormat:@"%@ %@, %@, %@, %@", self.location.address, self.location.city, self.location.state, self.location.country, self.location.postalCode];
+    NSString *address = self.location.address ? self.location.address : @"";
+    NSString *city = self.location.city ? [NSString stringWithFormat:@"%@,", self.location.city] : @"";
+    NSString *state = self.location.state ? [NSString stringWithFormat:@"%@,", self.location.state] : @"";
+    //NSString *country = self.location.country ? self.location.country : @"";
+    NSString *zip = self.location.postalCode ? self.location.postalCode : @"";
+    NSRange range = [zip rangeOfString:@" "];
+    if (range.location != NSNotFound) {
+        zip = [zip substringFromIndex:(range.location + 1)];
+    }
+    return [NSString stringWithFormat:@"%@ %@ %@ %@", address, city, state, zip];
+    
 }
 
 - (NSComparisonResult)compare:(BubbleTeaStore *)otherStore {

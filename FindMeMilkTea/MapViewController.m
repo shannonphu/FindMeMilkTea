@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet PreferenceBanner *banner;
+@property (weak, nonatomic) IBOutlet UIView *bottomBar;
 @property (nonatomic) NSUInteger userChoice;
 @property (strong, nonatomic) NSMutableArray *annotations; // of MKAnnotationView's
 @end
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.banner.hidden = YES;
+    self.bottomBar.hidden = YES;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         [self.locationManager requestWhenInUseAuthorization];
@@ -53,7 +55,15 @@
 }
 
 - (void)setupBanner {
+    self.banner.frame = CGRectMake(0, -100, self.view.frame.size.width, 100);
     self.banner.preferredStore = [self closestStoreAt:self.userChoice];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.banner.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+    }];
+}
+
+- (void)tapBanner:(UITapGestureRecognizer *)recognizer {
+    [self performSegueWithIdentifier:@"store-details" sender:self];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -180,15 +190,6 @@
     }
 }
 
-//- (void)hilightAnnotation {
-//    if (self.userChoice) {
-//        MKAnnotationView *prevAnnotation = [self.annotations objectAtIndex:(self.userChoice - 1)];
-//        prevAnnotation.image = [UIImage imageNamed:@"boba5"];
-//    }
-//    MKAnnotationView *annotation = [self.annotations objectAtIndex:self.userChoice];
-//    annotation.image = [UIImage imageNamed:@"milktea"];
-//}
-
 #pragma mark - RestKit
 
 - (void)configureRestKit {
@@ -253,13 +254,20 @@
                                                                   //refresh on map
                                                                   [self setMapRegion];
                                                                   [self.mapView addAnnotations:self.stores];
-                                                                  self.banner.frame = CGRectMake(0, -100, self.view.frame.size.width, 100);
-                                                                  [self setupBanner];
-                                                                  [UIView animateWithDuration:0.5 animations:^{
-                                                                      self.banner.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
-                                                                      self.banner.hidden = NO;
-                                                                  }];
                                                                   
+                                                                  // set up top/bottom banners
+                                                                  [self setupBanner];
+                                                                  UITapGestureRecognizer *singleFingerTap =
+                                                                  [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                                          action:@selector(tapBanner:)];
+                                                                  [self.banner addGestureRecognizer:singleFingerTap];
+
+                                                                  self.banner.hidden = NO;
+                                                                  self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height + 20, self.view.frame.size.width, 40);
+                                                                  [UIView animateWithDuration:0.3 animations:^{
+                                                                      self.bottomBar.hidden = NO;
+                                                                      self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40);
+                                                                  }];
                                                               });
                                                           }
                                                           else {
@@ -325,6 +333,12 @@
                     }
                 }
             }
+        }
+    }
+    else if ([sender isKindOfClass:[MapViewController class]]) {
+        if ([segue.identifier isEqualToString:@"store-details"]){
+            StoreDetailViewController *sdvc = segue.destinationViewController;
+            sdvc.store = [self.stores objectAtIndex:self.userChoice];
         }
     }
 }
