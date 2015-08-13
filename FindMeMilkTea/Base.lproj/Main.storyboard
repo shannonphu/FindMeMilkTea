@@ -24,8 +24,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Closest Store name adsad asd sad sa d as d ad  sad s " textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-j7-pvo">
-                                        <rect key="frame" x="222" y="25" width="370" height="87"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="28"/>
+                                        <rect key="frame" x="222" y="25" width="370" height="77"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Condensed" family="American Typewriter" pointSize="32"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -35,7 +35,7 @@
                                             <constraint firstAttribute="width" constant="172" id="Acz-qy-euk"/>
                                             <constraint firstAttribute="width" constant="186" id="MEl-1U-gAE"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Condensed" family="American Typewriter" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -49,7 +49,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="66" id="Ff6-hb-o7Y"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Condensed" family="American Typewriter" pointSize="22"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -141,71 +141,97 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRU-NU-5zF" userLabel="Overlay">
+                                <rect key="frame" x="1" y="0.0" width="599" height="600"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGG-Lc-rfP">
-                                <rect key="frame" x="16" y="20" width="41" height="46"/>
-                                <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="24"/>
-                                <state key="normal" title="◄">
+                                <rect key="frame" x="16" y="20" width="66" height="35"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <state key="normal" title="◄ Back">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="goBack:" destination="UGW-wr-OHM" eventType="touchUpInside" id="UHl-JO-b4c"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18I-xv-9jK">
-                                <rect key="frame" x="16" y="20" width="568" height="46"/>
-                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Store name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18I-xv-9jK">
+                                <rect key="frame" x="16" y="75" width="568" height="46"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vz-eT-D0y">
-                                <rect key="frame" x="266" y="138" width="198" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="twitter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcK-0E-php">
-                                <rect key="frame" x="266" y="217" width="198" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@twitter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcK-0E-php">
+                                <rect key="frame" x="65" y="292" width="256" height="38"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ao-kE-rmT">
-                                <rect key="frame" x="266" y="284" width="198" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="65" y="244" width="256" height="38"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="twitter" translatesAutoresizingMaskIntoConstraints="NO" id="YsC-52-J5b">
+                                <rect key="frame" x="12" y="291" width="40" height="40"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-Du-7WC">
+                                <rect key="frame" x="12" y="243" width="40" height="40"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tc3-Ju-9Hf">
+                                <rect key="frame" x="332" y="195" width="132" height="30"/>
+                                <state key="normal" title="Get Directions">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getDirections:" destination="UGW-wr-OHM" eventType="touchUpInside" id="Fm7-du-R5O"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vz-eT-D0y">
+                                <rect key="frame" x="65" y="138" width="256" height="38"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="mFg-Sq-BBx">
-                                <rect key="frame" x="190" y="138" width="58" height="59"/>
+                                <rect key="frame" x="12" y="137" width="40" height="40"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="twitter" translatesAutoresizingMaskIntoConstraints="NO" id="YsC-52-J5b">
-                                <rect key="frame" x="190" y="206" width="58" height="59"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-Du-7WC">
-                                <rect key="frame" x="190" y="273" width="58" height="59"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpk-QS-20L">
-                                <rect key="frame" x="266" y="351" width="198" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="address add addd addadasd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpk-QS-20L">
+                                <rect key="frame" x="65" y="185" width="256" height="50"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="1AS-e1-Tw7">
-                                <rect key="frame" x="190" y="340" width="58" height="59"/>
+                                <rect key="frame" x="12" y="190" width="40" height="40"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LGG-Lc-rfP" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leadingMargin" id="3GR-HQ-ANV"/>
-                            <constraint firstItem="jwu-Cv-DoY" firstAttribute="top" secondItem="18I-xv-9jK" secondAttribute="bottom" constant="534" id="O1B-aQ-93j"/>
+                            <constraint firstAttribute="trailing" secondItem="18I-xv-9jK" secondAttribute="trailing" constant="16" id="AAa-9r-5lD"/>
+                            <constraint firstAttribute="bottom" secondItem="HRU-NU-5zF" secondAttribute="bottom" id="Hew-EV-aAp"/>
+                            <constraint firstItem="18I-xv-9jK" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leading" constant="16" id="M5R-aI-pku"/>
                             <constraint firstItem="18I-xv-9jK" firstAttribute="trailing" secondItem="U9s-8a-qmD" secondAttribute="trailingMargin" id="Y15-uB-Xe8"/>
-                            <constraint firstItem="18I-xv-9jK" firstAttribute="leading" secondItem="LGG-Lc-rfP" secondAttribute="leading" id="fvT-Kq-phX"/>
-                            <constraint firstItem="18I-xv-9jK" firstAttribute="top" secondItem="LGG-Lc-rfP" secondAttribute="top" id="nhq-wu-N8t"/>
+                            <constraint firstItem="HRU-NU-5zF" firstAttribute="top" secondItem="U9s-8a-qmD" secondAttribute="top" id="hCs-cS-dAf"/>
+                            <constraint firstItem="18I-xv-9jK" firstAttribute="top" secondItem="U9s-8a-qmD" secondAttribute="top" constant="75" id="ne4-fY-RIk"/>
                             <constraint firstItem="LGG-Lc-rfP" firstAttribute="top" secondItem="OAM-is-miI" secondAttribute="bottom" id="pvg-4Y-NPH"/>
+                            <constraint firstAttribute="trailing" secondItem="HRU-NU-5zF" secondAttribute="trailing" id="pvp-FL-aFb"/>
+                            <constraint firstItem="HRU-NU-5zF" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leading" constant="1" id="sf8-72-ttV"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressIMG" destination="1AS-e1-Tw7" id="i8l-sw-hix"/>
+                        <outlet property="addressLabel" destination="lpk-QS-20L" id="V8D-ra-4Uz"/>
+                        <outlet property="facebookIMG" destination="WTK-Du-7WC" id="S4j-0M-iPi"/>
+                        <outlet property="facebookLabel" destination="7ao-kE-rmT" id="60K-Pl-d10"/>
+                        <outlet property="phoneIMG" destination="mFg-Sq-BBx" id="zuh-Q1-w76"/>
+                        <outlet property="phoneLabel" destination="8Vz-eT-D0y" id="0SF-P0-tp4"/>
                         <outlet property="titleLabel" destination="18I-xv-9jK" id="3NZ-eh-1cZ"/>
+                        <outlet property="twitterIMG" destination="YsC-52-J5b" id="Q9o-PP-piD"/>
+                        <outlet property="twitterLabel" destination="DcK-0E-php" id="Ie6-CX-AdV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mpu-Rn-eIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
