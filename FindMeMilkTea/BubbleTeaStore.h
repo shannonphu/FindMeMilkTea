@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *subtitle;
+@property (strong, nonatomic) NSString *menuURL;
 
 @property (strong, nonatomic) Location *location;
 @property (strong, nonatomic) Contact *contact;

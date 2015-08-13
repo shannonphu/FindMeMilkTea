@@ -29,8 +29,7 @@
 - (NSString *)subtitle {
     NSString *address = self.location.address ? self.location.address : @"";
     NSString *city = self.location.city ? [NSString stringWithFormat:@"%@,", self.location.city] : @"";
-    NSString *state = self.location.state ? [NSString stringWithFormat:@"%@,", self.location.state] : @"";
-    //NSString *country = self.location.country ? self.location.country : @"";
+    NSString *state = self.location.state ? [NSString stringWithFormat:@"%@", self.location.state] : @"";
     NSString *zip = self.location.postalCode ? self.location.postalCode : @"";
     NSRange range = [zip rangeOfString:@" "];
     if (range.location != NSNotFound) {

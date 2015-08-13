@@ -17,6 +17,7 @@
 #import "Contact.h"
 #import "StoreDetailViewController.h"
 #import "PreferenceBanner.h"
+#import "HUD.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -114,8 +115,8 @@
     region.center.longitude = (minLng + maxLng) / 2.0f;
     //region.center = userLocation;
     
-    region.span.latitudeDelta = (maxLat - minLat) * 1.1f; // 10% padding
-    region.span.longitudeDelta = (maxLng - minLng) * 1.1f; // 10% padding
+    region.span.latitudeDelta = (maxLat - minLat) * 2.1f;
+    region.span.longitudeDelta = (maxLng - minLng) * 2.1f;
     
     [self.mapView setRegion:region animated:YES];
 }
@@ -193,6 +194,9 @@
 #pragma mark - RestKit
 
 - (void)configureRestKit {
+    // start spinner
+    [HUD showUIBlockingIndicatorWithText:@"Searching..."];
+    
     // initialize AFNetworking HTTPClient
     NSURL *baseURL = [NSURL URLWithString:@"https://api.foursquare.com"];
     AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
@@ -204,12 +208,17 @@
     // location
     RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[Location class]];
     [locationMapping addAttributeMappingsFromArray:@[@"address", @"city", @"country", @"postalCode", @"state", @"distance", @"lat", @"lng"]];
+    
     // contact
     RKObjectMapping *contactMapping = [RKObjectMapping mappingForClass:[Contact class]];
-    [contactMapping addAttributeMappingsFromArray:@[@"formattedPhone", @"twitter", @"facebookName"]];
+    [contactMapping addAttributeMappingsFromDictionary:@{ @"phone" : @"formattedPhone",
+                                                        @"twitter" : @"twitter",
+                                                        @"facebookName" : @"facebookName" }];
+    
     // set up overall BubbleTeaStore mapping
     RKObjectMapping *storeMapping = [RKObjectMapping mappingForClass:[BubbleTeaStore class]];
-    [storeMapping addAttributeMappingsFromDictionary:@{ @"name" : @"title" }];
+    [storeMapping addAttributeMappingsFromDictionary:@{ @"name" : @"title",
+                                                        @"menu.url" : @"menuURL"}];
     [storeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location"
                                                                                    toKeyPath:@"location"
                                                                                  withMapping:locationMapping]];
@@ -254,6 +263,7 @@
                                                                   //refresh on map
                                                                   [self setMapRegion];
                                                                   [self.mapView addAnnotations:self.stores];
+                                                                  [HUD hideUIBlockingIndicator];
                                                                   
                                                                   // set up top/bottom banners
                                                                   [self setupBanner];
@@ -301,6 +311,7 @@
         NSLog(@"Twitter: %@", store.contact.twitter);
         NSLog(@"Facebook: %@", store.contact.facebookName);
         NSLog(@"Address: %@", store.subtitle);
+        NSLog(@"Menu: %@", store.menuURL);
         NSLog(@"Distance: %@", store.location.distance);
         NSLog(@"Coordinates: (%@, %@)", store.location.lat, store.location.lng);
         NSLog(@"====================================");

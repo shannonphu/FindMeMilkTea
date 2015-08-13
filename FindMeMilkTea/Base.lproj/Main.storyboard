@@ -23,9 +23,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3U-ai-A8p" customClass="PreferenceBanner">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Closest Store name adsad asd sad sa d as d ad  sad s " textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-j7-pvo">
-                                        <rect key="frame" x="222" y="25" width="370" height="77"/>
-                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Condensed" family="American Typewriter" pointSize="32"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Closest Store name adsad asd sad sa d as d ad  sad s " textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-j7-pvo">
+                                        <rect key="frame" x="202" y="25" width="390" height="87"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="32"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -35,7 +35,7 @@
                                             <constraint firstAttribute="width" constant="172" id="Acz-qy-euk"/>
                                             <constraint firstAttribute="width" constant="186" id="MEl-1U-gAE"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Condensed" family="American Typewriter" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -49,7 +49,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="66" id="Ff6-hb-o7Y"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Condensed" family="American Typewriter" pointSize="22"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="22"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -61,7 +61,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.76000000000000001" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="oyo-j7-pvo" firstAttribute="leading" secondItem="V3U-ai-A8p" secondAttribute="leading" constant="222" id="71U-x7-1gC"/>
+                                    <constraint firstItem="oyo-j7-pvo" firstAttribute="leading" secondItem="V3U-ai-A8p" secondAttribute="leading" constant="202" id="71U-x7-1gC"/>
                                     <constraint firstItem="oyo-j7-pvo" firstAttribute="top" secondItem="V3U-ai-A8p" secondAttribute="top" constant="25" id="BKy-Ui-om9"/>
                                     <constraint firstAttribute="trailing" secondItem="oyo-j7-pvo" secondAttribute="trailing" constant="8" id="PN4-qG-ibm"/>
                                     <constraint firstItem="UvO-v0-vIG" firstAttribute="top" secondItem="V3U-ai-A8p" secondAttribute="top" constant="25" id="QxZ-gO-MEy"/>
@@ -145,104 +145,198 @@
                                 <rect key="frame" x="1" y="0.0" width="599" height="600"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGG-Lc-rfP">
-                                <rect key="frame" x="16" y="20" width="66" height="35"/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                <state key="normal" title="◄ Back">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goBack:" destination="UGW-wr-OHM" eventType="touchUpInside" id="UHl-JO-b4c"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Store name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18I-xv-9jK">
-                                <rect key="frame" x="16" y="75" width="568" height="46"/>
-                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jOo-Ec-Igj">
+                                <rect key="frame" x="1" y="0.0" width="599" height="20"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utu-yE-DMy">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Store Name" id="VRc-0e-8PA">
+                                        <barButtonItem key="leftBarButtonItem" title="◄ Back" id="MbW-fp-i0V">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="goBack:" destination="UGW-wr-OHM" id="3ru-rT-HD0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@twitter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcK-0E-php">
-                                <rect key="frame" x="65" y="292" width="256" height="38"/>
+                                <rect key="frame" x="69" y="298" width="515" height="38"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ao-kE-rmT">
-                                <rect key="frame" x="65" y="244" width="256" height="38"/>
+                                <rect key="frame" x="69" y="250" width="515" height="38"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="twitter" translatesAutoresizingMaskIntoConstraints="NO" id="YsC-52-J5b">
-                                <rect key="frame" x="12" y="291" width="40" height="40"/>
+                                <rect key="frame" x="16" y="297" width="40" height="40"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-Du-7WC">
-                                <rect key="frame" x="12" y="243" width="40" height="40"/>
+                                <rect key="frame" x="16" y="249" width="40" height="40"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tc3-Ju-9Hf">
-                                <rect key="frame" x="332" y="195" width="132" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vz-eT-D0y">
+                                <rect key="frame" x="69" y="81" width="515" height="38"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="mFg-Sq-BBx">
+                                <rect key="frame" x="16" y="80" width="40" height="40"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="address add addd addadasd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpk-QS-20L">
+                                <rect key="frame" x="69" y="160" width="515" height="50"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="tc3-Ju-9Hf">
+                                <rect key="frame" x="69" y="213" width="256" height="29"/>
+                                <color key="backgroundColor" red="0.74901960784313726" green="0.15294117647058825" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="15"/>
                                 <state key="normal" title="Get Directions">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="getDirections:" destination="UGW-wr-OHM" eventType="touchUpInside" id="Fm7-du-R5O"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vz-eT-D0y">
-                                <rect key="frame" x="65" y="138" width="256" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="puG-tm-Q1G">
+                                <rect key="frame" x="69" y="122" width="256" height="30"/>
+                                <color key="backgroundColor" red="0.74901960779999999" green="0.1529411765" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="15"/>
+                                <state key="normal" title="Give them a call">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="callStore:" destination="UGW-wr-OHM" eventType="touchUpInside" id="DsF-cU-RJ7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="qCS-C9-Qwl">
+                                <rect key="frame" x="69" y="388" width="256" height="30"/>
+                                <color key="backgroundColor" red="0.74901960779999999" green="0.1529411765" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="15"/>
+                                <state key="normal" title="Visit their Website">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="visitWebsite:" destination="UGW-wr-OHM" eventType="touchUpInside" id="OnR-Pp-XN5"/>
+                                    <segue destination="KHW-zK-pay" kind="presentation" identifier="show-menu" id="oQT-mc-Jol"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="menuURL" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="gPc-ch-Pg8">
+                                <rect key="frame" x="69" y="347" width="515" height="38"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="mFg-Sq-BBx">
-                                <rect key="frame" x="12" y="137" width="40" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="menu" translatesAutoresizingMaskIntoConstraints="NO" id="mHu-MS-huc">
+                                <rect key="frame" x="16" y="345" width="40" height="40"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="address add addd addadasd" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpk-QS-20L">
-                                <rect key="frame" x="65" y="185" width="256" height="50"/>
-                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="1AS-e1-Tw7">
-                                <rect key="frame" x="12" y="190" width="40" height="40"/>
+                                <rect key="frame" x="16" y="165" width="40" height="40"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LGG-Lc-rfP" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leadingMargin" id="3GR-HQ-ANV"/>
-                            <constraint firstAttribute="trailing" secondItem="18I-xv-9jK" secondAttribute="trailing" constant="16" id="AAa-9r-5lD"/>
                             <constraint firstAttribute="bottom" secondItem="HRU-NU-5zF" secondAttribute="bottom" id="Hew-EV-aAp"/>
-                            <constraint firstItem="18I-xv-9jK" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leading" constant="16" id="M5R-aI-pku"/>
-                            <constraint firstItem="18I-xv-9jK" firstAttribute="trailing" secondItem="U9s-8a-qmD" secondAttribute="trailingMargin" id="Y15-uB-Xe8"/>
+                            <constraint firstItem="Utu-yE-DMy" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leading" id="aZF-az-45x"/>
+                            <constraint firstItem="Utu-yE-DMy" firstAttribute="top" secondItem="U9s-8a-qmD" secondAttribute="top" constant="20" id="cNt-el-nkc"/>
                             <constraint firstItem="HRU-NU-5zF" firstAttribute="top" secondItem="U9s-8a-qmD" secondAttribute="top" id="hCs-cS-dAf"/>
-                            <constraint firstItem="18I-xv-9jK" firstAttribute="top" secondItem="U9s-8a-qmD" secondAttribute="top" constant="75" id="ne4-fY-RIk"/>
-                            <constraint firstItem="LGG-Lc-rfP" firstAttribute="top" secondItem="OAM-is-miI" secondAttribute="bottom" id="pvg-4Y-NPH"/>
                             <constraint firstAttribute="trailing" secondItem="HRU-NU-5zF" secondAttribute="trailing" id="pvp-FL-aFb"/>
                             <constraint firstItem="HRU-NU-5zF" firstAttribute="leading" secondItem="U9s-8a-qmD" secondAttribute="leading" constant="1" id="sf8-72-ttV"/>
+                            <constraint firstAttribute="trailing" secondItem="Utu-yE-DMy" secondAttribute="trailing" id="v5O-ug-6bE"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addressIMG" destination="1AS-e1-Tw7" id="i8l-sw-hix"/>
                         <outlet property="addressLabel" destination="lpk-QS-20L" id="V8D-ra-4Uz"/>
+                        <outlet property="callButton" destination="puG-tm-Q1G" id="MDs-5o-8ca"/>
                         <outlet property="facebookIMG" destination="WTK-Du-7WC" id="S4j-0M-iPi"/>
                         <outlet property="facebookLabel" destination="7ao-kE-rmT" id="60K-Pl-d10"/>
+                        <outlet property="getDirectionsButton" destination="tc3-Ju-9Hf" id="CQF-tL-dIk"/>
+                        <outlet property="menuButton" destination="qCS-C9-Qwl" id="RyZ-FY-3kF"/>
+                        <outlet property="menuIMG" destination="mHu-MS-huc" id="eqm-ua-B9N"/>
+                        <outlet property="menuLabel" destination="gPc-ch-Pg8" id="Adc-xJ-CRe"/>
+                        <outlet property="navBar" destination="Utu-yE-DMy" id="kCH-l2-nhO"/>
                         <outlet property="phoneIMG" destination="mFg-Sq-BBx" id="zuh-Q1-w76"/>
                         <outlet property="phoneLabel" destination="8Vz-eT-D0y" id="0SF-P0-tp4"/>
-                        <outlet property="titleLabel" destination="18I-xv-9jK" id="3NZ-eh-1cZ"/>
                         <outlet property="twitterIMG" destination="YsC-52-J5b" id="Q9o-PP-piD"/>
                         <outlet property="twitterLabel" destination="DcK-0E-php" id="Ie6-CX-AdV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mpu-Rn-eIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2109" y="197"/>
+            <point key="canvasLocation" x="2126" y="197"/>
+        </scene>
+        <!--Web Page View Controller-->
+        <scene sceneID="rKU-8A-9cB">
+            <objects>
+                <viewController id="KHW-zK-pay" customClass="WebPageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MPG-iD-UdX"/>
+                        <viewControllerLayoutGuide type="bottom" id="OdU-Ag-N7O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zfa-qb-fuc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cO9-Ol-JL5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9kK-3w-Arq">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ki-xT-NPa">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Store Name" id="vdy-3w-3jg">
+                                        <barButtonItem key="leftBarButtonItem" title="◄ Back" id="Qbd-2E-8Vv">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="return:" destination="KHW-zK-pay" id="YF3-Ua-42C"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9kK-3w-Arq" firstAttribute="leading" secondItem="Zfa-qb-fuc" secondAttribute="leading" id="BBB-5g-rYE"/>
+                            <constraint firstAttribute="bottom" secondItem="9kK-3w-Arq" secondAttribute="bottom" id="UPz-pK-Vgo"/>
+                            <constraint firstAttribute="trailing" secondItem="2ki-xT-NPa" secondAttribute="trailing" id="jUE-Yl-SBy"/>
+                            <constraint firstItem="2ki-xT-NPa" firstAttribute="leading" secondItem="Zfa-qb-fuc" secondAttribute="leading" id="qXM-el-pfS"/>
+                            <constraint firstItem="9kK-3w-Arq" firstAttribute="top" secondItem="2ki-xT-NPa" secondAttribute="bottom" id="rJF-7d-MJp"/>
+                            <constraint firstItem="2ki-xT-NPa" firstAttribute="top" secondItem="Zfa-qb-fuc" secondAttribute="top" constant="20" id="skE-gy-sME"/>
+                            <constraint firstAttribute="trailing" secondItem="9kK-3w-Arq" secondAttribute="trailing" id="tEA-MF-4yg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="navBar" destination="2ki-xT-NPa" id="cqQ-jz-dAO"/>
+                        <outlet property="webView" destination="9kK-3w-Arq" id="wQr-u0-sYf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WPL-pm-20f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2778" y="197"/>
         </scene>
     </scenes>
     <resources>
-        <image name="facebook" width="512" height="512"/>
+        <image name="facebook" width="256" height="256"/>
+        <image name="menu" width="512" height="512"/>
         <image name="phone" width="256" height="256"/>
-        <image name="pin" width="88" height="88"/>
+        <image name="pin" width="256" height="256"/>
         <image name="twitter" width="256" height="256"/>
     </resources>
 </document>
