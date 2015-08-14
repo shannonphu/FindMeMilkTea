@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet PreferenceBanner *banner;
 @property (weak, nonatomic) IBOutlet UIView *bottomBar;
 @property (nonatomic) NSUInteger userChoice;
-@property (strong, nonatomic) NSMutableArray *annotations; // of MKAnnotationView's
+//@property (strong, nonatomic) NSMutableArray *annotations; // of MKAnnotationView's
 @end
 
 @implementation MapViewController
@@ -56,11 +56,13 @@
 }
 
 - (void)setupBanner {
-    self.banner.frame = CGRectMake(0, -100, self.view.frame.size.width, 100);
-    self.banner.preferredStore = [self closestStoreAt:self.userChoice];
-    [UIView animateWithDuration:0.5 animations:^{
-        self.banner.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
-    }];
+    if (self.userChoice < self.stores.count) {
+        self.banner.frame = CGRectMake(0, -100, self.view.frame.size.width, 100);
+        self.banner.preferredStore = [self closestStoreAt:self.userChoice];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.banner.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+        }];
+    }
 }
 
 - (void)tapBanner:(UITapGestureRecognizer *)recognizer {
@@ -86,7 +88,7 @@
     [self loadStores];
 }
 
-- (void)setMapRegion {
+- (void)setInitialMapRegion {
     MKCoordinateRegion region;
     CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
     
@@ -113,11 +115,28 @@
     
     region.center.latitude = (minLat + maxLat) / 2.0f;
     region.center.longitude = (minLng + maxLng) / 2.0f;
-    //region.center = userLocation;
     
     region.span.latitudeDelta = (maxLat - minLat) * 2.1f;
     region.span.longitudeDelta = (maxLng - minLng) * 2.1f;
     
+    [self.mapView setRegion:region animated:YES];
+}
+
+- (IBAction)viewPin:(id)sender {
+    [self setNewMapRegion];
+    [self hilightAnnotationAtIndex:self.userChoice];
+}
+
+- (void)setNewMapRegion {
+    if (self.userChoice >= self.stores.count) {
+        self.userChoice = 0;
+    }
+    MKCoordinateRegion region;
+    BubbleTeaStore *store = [self.stores objectAtIndex:self.userChoice];
+    region.center.latitude = store.location.lat.floatValue;
+    region.center.longitude = store.location.lng.floatValue;
+    region.span.latitudeDelta = fabs(region.center.latitude - self.mapView.userLocation.coordinate.latitude) / 2.2f;
+    region.span.longitudeDelta = fabs(region.center.longitude - self.mapView.userLocation.coordinate.longitude) / 2.2f;
     [self.mapView setRegion:region animated:YES];
 }
 
@@ -130,12 +149,12 @@
     return _locationManager;
 }
 
-- (NSMutableArray *)annotations {
-    if (!_annotations) {
-        _annotations = [[NSMutableArray alloc] init];
-    }
-    return _annotations;
-}
+//- (NSMutableArray *)annotations {
+//    if (!_annotations) {
+//        _annotations = [[NSMutableArray alloc] init];
+//    }
+//    return _annotations;
+//}
 
 #pragma mark - MapKit
 
@@ -155,9 +174,10 @@
         [disclosureButton setBackgroundImage:[UIImage imageNamed:@"disclosure"] forState:UIControlStateNormal];
         [disclosureButton sizeToFit];
         view.rightCalloutAccessoryView = disclosureButton;
+    } else {
+        view.annotation = annotation;
     }
-    view.annotation = annotation;
-    [self.annotations addObject:view];
+    //[self.annotations addObject:view];
     return view;
 }
 
@@ -183,11 +203,66 @@
     return self.stores ? [self.stores sortedArrayUsingSelector:@selector(compare:)] : nil;
 }
 
+/*- (void)sortAnnotations {
+    if (self.annotations.count) {
+        [self.annotations sortUsingComparator:
+         ^NSComparisonResult(id obj1, id obj2){
+             
+             MKAnnotationView *p1 = (MKAnnotationView*)obj1;
+             MKAnnotationView *p2 = (MKAnnotationView*)obj2;
+             
+             CLLocationCoordinate2D coord1 = p1.annotation.coordinate;
+             CLLocation *loc1 = [[CLLocation alloc] initWithLatitude:coord1.latitude longitude:coord1.longitude];
+             CLLocationCoordinate2D coord2 = p2.annotation.coordinate;
+             CLLocation *loc2 = [[CLLocation alloc] initWithLatitude:coord2.latitude longitude:coord2.longitude];
+             
+             CLLocationCoordinate2D user = self.mapView.userLocation.location.coordinate;
+             CLLocation *userLoc = [[CLLocation alloc] initWithLatitude:user.latitude longitude:user.longitude];
+             
+             CLLocationDistance dist1 = [loc1 distanceFromLocation:userLoc];
+             CLLocationDistance dist2 = [loc2 distanceFromLocation:userLoc];
+             
+             if (dist1 > dist2) {
+                 return (NSComparisonResult)NSOrderedDescending;
+             } else if (dist1 < dist2) {
+                 return (NSComparisonResult)NSOrderedAscending;
+             }
+             return (NSComparisonResult)NSOrderedSame;
+         }];
+    }
+}*/
+
 - (IBAction)findNextClosest:(id)sender {
     if (self.userChoice < [self.stores count]) {
         self.userChoice++;
-        //[self hilightAnnotation];
+        //[self sortAnnotations];
+        [self setNewMapRegion];
+        [self hilightAnnotationAtIndex:self.userChoice];
         [self setupBanner];
+    } else {
+        self.userChoice = 0;
+    }
+}
+
+- (void)hilightAnnotationAtIndex:(NSUInteger)index {
+    if (index < self.stores.count) {
+        BubbleTeaStore *store = [self.stores objectAtIndex:self.userChoice];
+        for (id<MKAnnotation> annotation in self.mapView.annotations){
+            MKAnnotationView* anView = [self.mapView viewForAnnotation:annotation];
+            if (anView.annotation.coordinate.latitude == store.location.lat.floatValue && anView.annotation.coordinate.longitude == store.location.lng.floatValue){
+                // hilight next annotation that shows on banner
+                [UIView animateWithDuration:0.3 animations:^{
+                    for (id<MKAnnotation> annotation in self.mapView.annotations){
+                        MKAnnotationView *prevHilighted = [self.mapView viewForAnnotation:annotation];
+                        prevHilighted.image = [UIImage imageNamed:@"boba5"];
+                    }
+                    anView.image = [UIImage imageNamed:@"boba5-large"];
+                    [self.mapView selectAnnotation:anView.annotation animated:YES];
+                }];
+            }
+        }
+    } else {
+        self.userChoice = 0;
     }
 }
 
@@ -261,7 +336,7 @@
                                                               [self printStoreInfo];
                                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                                   //refresh on map
-                                                                  [self setMapRegion];
+                                                                  [self setInitialMapRegion];
                                                                   [self.mapView addAnnotations:self.stores];
                                                                   [HUD hideUIBlockingIndicator];
                                                                   
@@ -271,8 +346,8 @@
                                                                   [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                           action:@selector(tapBanner:)];
                                                                   [self.banner addGestureRecognizer:singleFingerTap];
-
                                                                   self.banner.hidden = NO;
+                                                                  
                                                                   self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height + 20, self.view.frame.size.width, 40);
                                                                   [UIView animateWithDuration:0.3 animations:^{
                                                                       self.bottomBar.hidden = NO;

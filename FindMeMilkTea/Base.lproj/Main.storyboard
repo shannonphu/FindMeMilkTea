@@ -58,6 +58,15 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4K9-jT-rX2">
+                                        <rect key="frame" x="546" y="82" width="46" height="30"/>
+                                        <state key="normal" title="Map">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewPin:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qgk-HD-aKV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.76000000000000001" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -65,7 +74,9 @@
                                     <constraint firstItem="oyo-j7-pvo" firstAttribute="top" secondItem="V3U-ai-A8p" secondAttribute="top" constant="25" id="BKy-Ui-om9"/>
                                     <constraint firstAttribute="trailing" secondItem="oyo-j7-pvo" secondAttribute="trailing" constant="8" id="PN4-qG-ibm"/>
                                     <constraint firstItem="UvO-v0-vIG" firstAttribute="top" secondItem="V3U-ai-A8p" secondAttribute="top" constant="25" id="QxZ-gO-MEy"/>
+                                    <constraint firstAttribute="bottom" secondItem="4K9-jT-rX2" secondAttribute="bottom" constant="8" id="W0O-rZ-E5F"/>
                                     <constraint firstItem="ee2-2i-1fT" firstAttribute="leading" secondItem="V3U-ai-A8p" secondAttribute="leading" constant="8" id="Zv1-dD-3et"/>
+                                    <constraint firstAttribute="trailing" secondItem="4K9-jT-rX2" secondAttribute="trailing" constant="8" id="b3D-w0-Qw2"/>
                                     <constraint firstItem="UvO-v0-vIG" firstAttribute="leading" secondItem="V3U-ai-A8p" secondAttribute="leading" constant="8" id="coB-AR-Hcf"/>
                                     <constraint firstAttribute="height" constant="120" id="hfF-RB-3ci"/>
                                     <constraint firstAttribute="bottom" secondItem="ee2-2i-1fT" secondAttribute="bottom" constant="8" id="uHD-TO-xbf"/>
