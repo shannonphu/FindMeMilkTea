@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet PreferenceBanner *banner;
 @property (weak, nonatomic) IBOutlet UIView *bottomBar;
 @property (nonatomic) NSUInteger userChoice;
-//@property (strong, nonatomic) NSMutableArray *annotations; // of MKAnnotationView's
 @end
 
 @implementation MapViewController
@@ -122,11 +121,6 @@
     [self.mapView setRegion:region animated:YES];
 }
 
-- (IBAction)viewPin:(id)sender {
-    [self setNewMapRegion];
-    [self hilightAnnotationAtIndex:self.userChoice];
-}
-
 - (void)setNewMapRegion {
     if (self.userChoice >= self.stores.count) {
         self.userChoice = 0;
@@ -149,18 +143,15 @@
     return _locationManager;
 }
 
-//- (NSMutableArray *)annotations {
-//    if (!_annotations) {
-//        _annotations = [[NSMutableArray alloc] init];
-//    }
-//    return _annotations;
-//}
-
 #pragma mark - MapKit
 
 -(MKAnnotationView*)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
-    if ([annotation isKindOfClass:[MKUserLocation class]])
+    //check annotation is not user location
+    if([annotation isEqual:[mapView userLocation]])
+    {
+        //bail
         return nil;
+    }
     static NSString* reuseId = @"BubbleTeaStore";
     MKAnnotationView* view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
     if (!view) {
@@ -177,7 +168,6 @@
     } else {
         view.annotation = annotation;
     }
-    //[self.annotations addObject:view];
     return view;
 }
 
@@ -203,39 +193,20 @@
     return self.stores ? [self.stores sortedArrayUsingSelector:@selector(compare:)] : nil;
 }
 
-/*- (void)sortAnnotations {
-    if (self.annotations.count) {
-        [self.annotations sortUsingComparator:
-         ^NSComparisonResult(id obj1, id obj2){
-             
-             MKAnnotationView *p1 = (MKAnnotationView*)obj1;
-             MKAnnotationView *p2 = (MKAnnotationView*)obj2;
-             
-             CLLocationCoordinate2D coord1 = p1.annotation.coordinate;
-             CLLocation *loc1 = [[CLLocation alloc] initWithLatitude:coord1.latitude longitude:coord1.longitude];
-             CLLocationCoordinate2D coord2 = p2.annotation.coordinate;
-             CLLocation *loc2 = [[CLLocation alloc] initWithLatitude:coord2.latitude longitude:coord2.longitude];
-             
-             CLLocationCoordinate2D user = self.mapView.userLocation.location.coordinate;
-             CLLocation *userLoc = [[CLLocation alloc] initWithLatitude:user.latitude longitude:user.longitude];
-             
-             CLLocationDistance dist1 = [loc1 distanceFromLocation:userLoc];
-             CLLocationDistance dist2 = [loc2 distanceFromLocation:userLoc];
-             
-             if (dist1 > dist2) {
-                 return (NSComparisonResult)NSOrderedDescending;
-             } else if (dist1 < dist2) {
-                 return (NSComparisonResult)NSOrderedAscending;
-             }
-             return (NSComparisonResult)NSOrderedSame;
-         }];
+- (IBAction)findPrevClosest:(id)sender {
+    if (self.userChoice > 0) {
+        self.userChoice--;
+        [self setNewMapRegion];
+        [self hilightAnnotationAtIndex:self.userChoice];
+        [self setupBanner];
+    } else {
+        self.userChoice = self.stores.count - 1;
     }
-}*/
+}
 
 - (IBAction)findNextClosest:(id)sender {
     if (self.userChoice < [self.stores count]) {
         self.userChoice++;
-        //[self sortAnnotations];
         [self setNewMapRegion];
         [self hilightAnnotationAtIndex:self.userChoice];
         [self setupBanner];
@@ -253,8 +224,12 @@
                 // hilight next annotation that shows on banner
                 [UIView animateWithDuration:0.3 animations:^{
                     for (id<MKAnnotation> annotation in self.mapView.annotations){
+                        if ([annotation isKindOfClass:[MKUserLocation class]]) {
+                            continue;
+                        }
                         MKAnnotationView *prevHilighted = [self.mapView viewForAnnotation:annotation];
                         prevHilighted.image = [UIImage imageNamed:@"boba5"];
+                        [self.mapView deselectAnnotation:annotation animated:YES];
                     }
                     anView.image = [UIImage imageNamed:@"boba5-large"];
                     [self.mapView selectAnnotation:anView.annotation animated:YES];
@@ -425,6 +400,8 @@
         if ([segue.identifier isEqualToString:@"store-details"]){
             StoreDetailViewController *sdvc = segue.destinationViewController;
             sdvc.store = [self.stores objectAtIndex:self.userChoice];
+            [self setNewMapRegion];
+            [self hilightAnnotationAtIndex:self.userChoice];
         }
     }
 }
