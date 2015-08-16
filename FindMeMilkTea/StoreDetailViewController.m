@@ -37,6 +37,8 @@ static NSString * const kBusinessPath      = @"/v2/business/";
 
 @implementation StoreDetailViewController
 
+#pragma mark - View Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -112,6 +114,14 @@ static NSString * const kBusinessPath      = @"/v2/business/";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma Foodspotting API
+
+- (void)loadFoodSpottingData {
+    // TO DO 
+}
+
+#pragma mark - IBAction Functions
+
 - (IBAction)callStore:(id)sender {
     NSLog(@"call");
     NSString *phoneNumber = [NSString stringWithFormat:@"tel://%@", self.store.contact.formattedPhone];
@@ -135,39 +145,8 @@ static NSString * const kBusinessPath      = @"/v2/business/";
 }
 
 - (IBAction)visitWebsite:(id)sender {
+    // segues
 }
-
-/*
-static NSString * const kConsumerKey       = @"HBiL_y0xMIOBxLAgi3wcrw";
-static NSString * const kConsumerSecret    = @"AFZlFtGEi1hANs7PI87Lxy75nW0";
-static NSString * const kToken             = @"yuCx01jUPD9AIFnIYSQbZNy7l6knVnWV";
-static NSString * const kTokenSecret       = @"iGVl08YSKl-sckXf1eXFi67r5LA";
-
-- (void)fetchYelp{
-    NSString *rootYelpURL = [NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=food&location=San%20Francisco"];//, self.store.location.lat, self.store.location.lng];
-    
-    //NSURL *URL = [NSURL URLWithString:rootYelpURL];
-    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:kConsumerKey secret:kConsumerSecret];
-    OAToken *token = [[OAToken alloc] initWithKey:kToken secret:kTokenSecret];
-    
-    id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init] ;
-    NSString *realm = nil;
-    
-    OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:URL
-                                                                   consumer:consumer
-                                                                      token:token
-                                                                      realm:realm
-                                                          signatureProvider:provider];
-    [request prepare];
-
-    NSURLSessionTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        NSLog(@"%@",json);
-    }];
-    
-    [task resume];
-}
-*/
 
 #pragma mark - Navigation
 
